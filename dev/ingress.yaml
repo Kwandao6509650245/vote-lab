@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/"},"name":"vote-front-ingress","namespace":"default"},"spec":{"ingressClassName":"nginx","rules":[{"http":{"paths":[{"backend":{"service":{"name":"vote-front","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  creationTimestamp: "2025-08-15T08:36:00Z"
+  generation: 8
+  name: vote-front-ingress
+  namespace: vote-app
+  resourceVersion: "893063"
+  uid: 1324d470-bc2d-4103-8c59-73ee4e53d7a7
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: vote.example.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: vote-front
+            port:
+              number: 80
+        path: /vote
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.2.0

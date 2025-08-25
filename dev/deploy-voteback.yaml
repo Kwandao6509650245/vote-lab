@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"vote-back"},"name":"vote-back","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"vote-back"}},"template":{"metadata":{"labels":{"app":"vote-back"}},"spec":{"containers":[{"env":[{"name":"ALLOW_EMPTY_PASSWORD","value":"yes"}],"image":"mcr.microsoft.com/oss/bitnami/redis:6.0.8","name":"redis","ports":[{"containerPort":6379,"name":"redis"}],"volumeMounts":[{"mountPath":"/bitnami/redis/data","name":"votelab"}]}],"securityContext":{"fsGroup":1001},"volumes":[{"name":"votelab","persistentVolumeClaim":{"claimName":"pvc-votelab"}}]}}}}
+  creationTimestamp: "2025-08-13T06:57:29Z"
+  generation: 4
+  labels:
+    app: vote-back
+  name: vote-back
+  namespace: vote-app
+  resourceVersion: "744981"
+  uid: ba211575-0d86-4bbf-b1d8-6835abeba211
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: vote-back
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vote-back
+    spec:
+      containers:
+      - env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        image: mcr.microsoft.com/oss/bitnami/redis:6.0.8
+        imagePullPolicy: IfNotPresent
+        name: redis
+        ports:
+        - containerPort: 6379
+          name: redis
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /bitnami/redis/data
+          name: votelab
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1001
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: votelab
+        persistentVolumeClaim:
+          claimName: pvc-votelab
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2025-08-13T06:57:29Z"
+    lastUpdateTime: "2025-08-13T08:56:28Z"
+    message: ReplicaSet "vote-back-7bd54df5db" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2025-08-15T08:35:14Z"
+    lastUpdateTime: "2025-08-15T08:35:14Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 4
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
