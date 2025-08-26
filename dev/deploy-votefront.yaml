@@ -15,7 +15,7 @@ metadata:
   uid: 19dff4b0-c9ad-480f-965a-d708aadcc0cb
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
