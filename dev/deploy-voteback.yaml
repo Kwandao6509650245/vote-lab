@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vote-back-argo
+  name: vote-back
   namespace: vote-app
   labels:
     app: vote-back
